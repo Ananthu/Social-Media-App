@@ -15,12 +15,14 @@
 		        <h3><a href="{% url 'posts:detail' lt.id %}">{{ lt.title}}</a><small>  {{ lt.timestamp|timesince }} ago</small></h3>
 		        <p>{{ lt.content|linebreaks|truncatechars:120 }}</p>
 		        <p><a href="{% url 'posts:detail' lt.id %}" class="btn btn-primary" role="button">View</a></p>
-				        <button  data-like-id="{{ lt.id }}" class="btn btn-primary glyphicon glyphicon-thumbs-up likes" type="button">
-				        Like {% if lt.likes > 0 %} {{lt.likes}} {% endif %}
-				        </button>	  
-				     	<button id="dislike{{ lt.id }}" data-dislike-id="{{ lt.id }}" class="btn btn-primary glyphicon glyphicon-thumbs-down dislikes" type="button">
-				        DisLikes {% if lt.dislikes > 0 %} {{lt.dislikes}} {% endif %}
-				        </button>    
+		        		{% if request.user.is_authenticated %}
+					        <button  data-like-id="{{ lt.id }}" class="btn btn-primary glyphicon glyphicon-thumbs-up likes" type="button">
+					        Like {% if lt.likes > 0 %} {{lt.likes}} {% endif %}
+					        </button>	  
+					     	<button id="dislike{{ lt.id }}" data-dislike-id="{{ lt.id }}" class="btn btn-primary glyphicon glyphicon-thumbs-down dislikes" type="button">
+					        DisLikes {% if lt.dislikes > 0 %} {{lt.dislikes}} {% endif %}
+					        </button>  
+					    {% endif %}  
 				</div>
 		    </div>
 		  </div>
