@@ -10,11 +10,11 @@ urlpatterns = [
     #urls for the navigation bar
     url(r'^register/$',views.RegistrationView.as_view(), name='registration'),
     url(r'^login/$',views.LoginView.as_view(), name='login'),
-	url(r'^logout$',views.logout_view,name="logout"),
-	url(r'^add/$', views.PostCreate.as_view(), name='addpost'),
+    url(r'^logout$',views.logout_view,name="logout"),
+    url(r'^add/$', views.PostCreate.as_view(), name='addpost'),
 
-	#like-button
-	url(r'^like_category/$', views.like_category, name='like_category'),
+    #like-button
+    url(r'^like_category/$', views.like_category, name='like_category'),
 
     url(r'^unlike_category/$', views.unlike_category, name='unlike_category'),
 

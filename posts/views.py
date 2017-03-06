@@ -1,7 +1,7 @@
-from django.http import HttpResponse 
+from django.http import HttpResponse
 from django.shortcuts import render,get_object_or_404,redirect
 from django.core.urlresolvers import reverse
-from models import Post,Comment,User_Detailed_Info
+from posts.models import Post,Comment,User_Detailed_Info
 from posts.forms import PostForm,CommentForm,DetailedUserForm
 from django.views.generic import View
 from posts.forms import RegistrationForm,LoginForm
@@ -27,7 +27,7 @@ def post_update(request,id=None):
 	if instance.created_user != request.user.username :
 		messages.success(request, "Post owned by another user, You are having read permission only")
 		return render(request,"my_blog/denied.html",{})
-	else :	
+	else :
 		form=PostForm(request.POST or None,request.FILES or None,instance=instance)
 		if form.is_valid():
 			instance=form.save(commit=False)
@@ -111,7 +111,7 @@ class LoginView(View):
 			username =form.cleaned_data['username']
 			password =form.cleaned_data['password']
 
-	
+
 
 			#authentication
 
@@ -121,7 +121,7 @@ class LoginView(View):
 				pass
 			else:
 				messages.success(request,"Wrong password or username")
-				
+
 
 			if user is not None:
 				if user.is_active:
@@ -199,7 +199,6 @@ def add_comment_to_post(request, id):
 #to see the detailed user information
 
 def user_info(request):
-	print request.user
 	current_user=User_Detailed_Info.objects.get(name=request.user)
 	user_posts=Post.objects.filter(created_user=request.user.username)
 	return render(request,'my_blog/user_detailed_info.html',{"current_user":current_user,"user_posts":user_posts})
